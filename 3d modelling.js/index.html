@@ -1,0 +1,60 @@
+<html>
+<head>
+
+    <title> Three.js Template </title>
+
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+    <canvas id="c"></canvas>
+
+</body>
+
+<script type="module">
+
+//Module imports
+import * as THREE from './build/three.module.js';
+import{ OrbitControls } from './jsm/OrbitControls.js';
+
+// Canvas Initialization
+const canvas = document.querySelector('#c');
+const renderer  = new THREE.WebGLRenderer({canvas});
+renderer.setSize(window.innerWidth*2, window.innerHeight*2, false );
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+// Scene Initialization
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+// Camera Initialization
+const fov = 70;
+const aspect = (window.innerWidth/ window.innerHeight);
+const near = 0.1;
+const far = 500;
+
+const camera = new THREE.PerspectiveCamera (fov, aspect, near, far);
+
+// const controls = new OrbitControls( camera, renderer.domElement );
+camera.position.set(0, 10, 20)
+controls.update();
+
+const light = new THREE.AmbientLight( 0xffffff, 1);
+scene.add( light );
+
+
+function animate() {
+
+    // controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+</html>
